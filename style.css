@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
 }
+
 header{
     height: 80px;
     width: 100%;
@@ -152,6 +153,127 @@ border-radius: 15px;
     border-radius: 50%;
     font-size: 12px;
 }
+@media (max-width: 768px) {
+    .cart-icon {
+        font-size: 20px;
+    }
+    .cart-count {
+        font-size: 10px;
+        padding: 2px 4px;
+    }
+    .search_input {
+        width: 100px;
+    }
+}@media (max-width: 768px) {
+    .logo img {
+        margin-top: 30px;
+        width: 40px;
+        height: 40px;
+       
+
+    }
+
+    .logo h1 {
+        font-size: 40px;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .logo h1 {
+        font-size: 30px;
+    }
+}
+/* تصغير العناصر على الشاشات الصغيرة */
+@media (max-width: 768px) {
+    .last-post {
+        height: 40px; /* تقليل الارتفاع */
+    }
+
+    .last-post h4 {
+        font-size: 16px; /* تصغير الخط */
+        padding: 3px;
+    }
+
+    .last-post .span-img img {
+        width: 25px;
+        height: 25px;
+        margin-left: 5px;
+    }
+
+    .cart li {
+        font-size: 20px; /* تصغير حجم الأيقونات */
+        margin-left: 10px;
+    }
+
+    .cart-count {
+        font-size: 10px; /* تصغير رقم عدد المنتجات */
+        padding: 3px 5px;
+        top: -5px;
+        right: -5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .last-post {
+        height: 35px;
+    }
+
+    .last-post h4 {
+        font-size: 14px;
+        padding: 2px;
+    }
+
+    .last-post .span-img img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .cart li {
+        font-size: 18px;
+        margin-left: 8px;
+    }
+
+    .cart-count {
+        font-size: 9px;
+        padding: 2px 4px;
+        top: -4px;
+        right: -4px;
+    }
+}
+@media (max-width: 768px) {
+    .cart li i,  /* أيقونات السلة والمستخدم */
+    .social a i { /* أيقونات وسائل التواصل */
+        font-size: 15px; /* تصغير الأيقونات */
+    }
+}
+
+@media (max-width: 480px) {
+    .cart li i, 
+    .social a i {
+        font-size: 16px; /* تصغير الأيقونات أكثر للشاشات الأصغر */
+    }
+}
+@media (max-width: 768px) {
+    .section a {
+        font-size: 16px; /* تصغير حجم الخط على التابلت */
+        padding: 4px 2px; /* تقليل التباعد */
+    }
+}
+
+@media (max-width: 480px) {
+    .section a {
+        font-size: 14px; /* تصغير الخط أكثر على الشاشات الصغيرة */
+        padding: 3px 1px;
+    }
+}
+
+
 /* start product */
 main{
     display: flex;
@@ -263,6 +385,7 @@ color: black;
 padding: 5px 5px;
 
 }
+
 
 /* product end */
 

@@ -1,40 +1,51 @@
-
-
 <?php
-ob_start();
-session_start();  
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ./user/login.php"); 
+    header("Location: ./user/login.php");
     exit();
 }
 
 include("file/header.php");
-include("file/footer.php");
 
- // start delete
- $id=$_GET['id'] ?? null;
- if(isset($id)){
-    $query = $conn->prepare("DELETE FROM cart WHERE user_id = ? AND product_id = ?");
-    $query->execute([$_SESSION['user_id'], $id]);
-     if(isset($query)){
-        echo '<script>alert("  هل انت متاكد !!!  ")</script>';
-     }
-    if(!isset($query)){
-         echo '<script>alert("لم يتم الحذف هناك خطاء")</script>';
-     }
- }
- // end delete
 
-if (isset($_POST['confirm_order'])) {
-     echo "<script>alert('تم تأكيد الطلب بنجاح!');</script>";
+// start delete
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $product_id = $_GET['id'];
+
+    echo "<script>
+        var confirmDelete = confirm('هل أنت متأكد من حذف المنتج؟');
+        if (confirmDelete) {
+            window.location.href = 'cart.php?delete_id=$product_id';
+        } else {
+            window.location.href = 'cart.php';
+        }
+    </script>";
 }
+
+if (isset($_GET['delete_id']) && is_numeric($_GET['delete_id'])) {
+    $product_id = $_GET['delete_id'];
+
+    $deleteQuery = $conn->prepare("DELETE FROM cart WHERE user_id = ? AND product_id = ?");
+    $deleteQuery->execute([$_SESSION['user_id'], $product_id]);
+
+    echo "<script>alert('تم حذف المنتج من السلة بنجاح'); window.location.href = 'cart.php';</script>";
+}
+// end delete
+// if (isset($_POST['confirm_order'])) {
+//     header("Location: checkout.php");
+//     exit();
+// }
 
 $query = $conn->prepare("SELECT p.*, c.quantity FROM cart c JOIN product p ON c.product_id = p.id WHERE c.user_id = ?");
 $query->execute([$_SESSION['user_id']]);
 $cart_items = $query->fetchAll(PDO::FETCH_ASSOC);
-ob_end_flush();
+
+// $_SESSION['cart_items'] = $cart_items;
 ?>
+
 
 <!DOCTYPE html>
 <html lang="ar">
@@ -43,17 +54,14 @@ ob_end_flush();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سلة التسوق</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            margin-bottom: 50px;
-            margin: 0;
-            padding: 20px;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
+    body {
+    overflow-y: auto; /* السماح بالتمرير */
+    min-height: 100vh; /* يضمن أن الصفحة تأخذ ارتفاع الشاشة بالكامل */
+    margin: 0;
+    padding: 0;
+}
 
         .container {
             background-color: #ffffff;
@@ -122,7 +130,6 @@ ob_end_flush();
 <body>
     <div class="container">
         <h1>سلة التسوق</h1>
-
         <table>
             <thead>
                 <tr>
@@ -130,7 +137,7 @@ ob_end_flush();
                     <th>إجمالي السعر</th>
                     <th>الكمية</th>
                     <th>السعر</th>
-                    <th>الاسم </th>
+                    <th>الاسم</th>
                     <th>صورة المنتج</th>
                 </tr>
             </thead>
@@ -141,24 +148,27 @@ ob_end_flush();
                     $subtotal = $item['proprice'] * $item['quantity'];
                     $total_price += $subtotal;
                 ?>
-                        
-                    <tr>
-                        <td><a href="cart.php?id=<?php echo $item['id'] ;?>"><button type="submit" name="delete" value="" class="delete-icon" style="border:none; background:none;">
+                    <td><a href="cart.php?id=<?php echo $item['id']; ?>"><button type="submit" name="delete" value="" class="delete-icon" style="border:none; background:none;">
                                 <i class="fas fa-trash"></i>
                             </button></a> </td>
-                        <td class="total"><?php echo number_format($subtotal, 2); ?> &nbsp;</td>
-                        <td><input type="number" name="quantity" value="<?php echo $item['quantity']; ?>" min="1" class="quantity" /></td>
-                        <td><?php echo $item['proprice']; ?> &nbsp;</td>
-                        <td><?php echo $item['proname']; ?></td>
-                        <td><img src="uploade/img/<?php echo $item['proimg']; ?>" alt="منتج" width="50"></td>
+                    <td class="total"><?php echo number_format($subtotal, 2); ?> &nbsp;</td>
+                    <td><?= $item['quantity']; ?></td>
+                    <td><?= $item['proprice']; ?> &nbsp;</td>
+                    <td><?= $item['proname']; ?></td>
+                    <td><img src="uploade/img/<?= $item['proimg']; ?>" alt="منتج" width="50"></td>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
-      <div class="divtotal">  <h3>الإجمالي: <span class="total"><?php echo number_format($total_price, 2); ?> &nbsp;</span></h3>
-        <button class="confirm-button" type="submit" name="confirm_order">تأكيد الطلب</button>
+        <div class="divtotal">
+            <h3>الإجمالي: <span class="total"><?= number_format($total_price, 2); ?> &nbsp;</span></h3>
+            <form action="checkout.php" method="GET">
+    <button class="confirm-button" type="submit">تأكيد الطلب</button>
+</form>
 
+
+        </div>
     </div>
 </body>
-
-</html>
+<br><br><br><br>
+<?=include("file/footer.php");?>

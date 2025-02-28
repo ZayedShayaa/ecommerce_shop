@@ -63,11 +63,11 @@ if($result->rowCount()> 0){
         </div>
        <form action="val.php" method="POST">
         <!-- Quantity -->
-        <div class="qty_input">
-            <button class="qty_count_mins">-</button>
-            <input type="number" name="quantity" id="quantity" value="1" min="1" max="7">
-            <button class="qty_count_add">+</button>
-        </div><br>
+            <div class="qty_input">
+                <button type="button" class="decrease-btn">-</button>
+                <input type="number" name="quantity" class="quantity-input" value="1" min="1" max="7">
+                <button type="button" class="increase-btn">+</button>
+            </div><br>
          <!-- Quantity -->
            <!-- submit -->
         <div class="submit">
@@ -90,3 +90,4 @@ if($result->rowCount()> 0){
 ?>
 <br><br><br><br><br>
 <?= include("file/footer.php");?>
+<script src="inc&dec.js"></script>

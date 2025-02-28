@@ -7,6 +7,7 @@
     <title>تفاصيل المنتج</title>
 </head>
 <style>
+    
     main {
         display: flex;
         flex-wrap: wrap;
@@ -151,22 +152,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    @media screen and (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .product_img, .product_info, .comment_info {
-        width: 90%;
-        max-width: 100%;
-        text-align: center;
-    }
-
-    .comment_info {
-        margin-top: 20px;
-    }
-}
+  
 </style>
 
 <body>
@@ -202,22 +188,23 @@
                 <h4 class="product_description">تفاصيل المنتج</h4>
                 <p><?php echo $row['prodescription']; ?></p>
                 <hr>
-                <!-- Quantity -->
-                <div class="qty_input">
-                    <button class="qty_count_mins">-</button>
-                    <input type="number" name="" id="quantity" value="1" min="0" max="7">
-                    <button class="qty_count_add">+</button>
-                </div><br>
-                <!-- Quantity -->
-                <!-- submit -->
-                <div class="submit">
-                    <a href="">
-                        <button class="add_cart" type="submit" name="">
-                            <i class="fa-solid fa-cart-plus">&nbsp; &nbsp;</i>أضف الى السلة
-                        </button>
-                    </a>
-                </div>
-                <!-- submit -->
+                 <form action="val.php" method="POST">
+       <!-- Quantity -->
+       <div class="qty_input">
+                <button type="button" class="decrease-btn">-</button>
+                <input type="number" name="quantity" class="quantity-input" value="1" min="1" max="7">
+                <button type="button" class="increase-btn">+</button>
+            </div><br>
+         <!-- Quantity -->
+
+        <!-- submit -->
+        <div class="submit">
+        <input type="hidden" name="product_id" value="<?php echo $row['id']; ?>">
+            <button class="add_cart" type="submit" name="add_to_cart">
+                <i class="fa-solid fa-cart-plus">&nbsp; &nbsp;</i>أضف الى السلة
+            </button>
+        </div>
+      </form>
             </div>
             <!-- end information -->
         </div>
@@ -288,6 +275,7 @@
 
 
 <?= include("file/footer.php");?>
+<script src="inc&dec.js"></script>
 </body>
 
 </html>

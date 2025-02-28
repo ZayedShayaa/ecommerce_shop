@@ -1,0 +1,167 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+body{
+    background-color: #fff;
+}
+.sidebare_container{
+    display: flex;
+    position: relative;
+    
+}
+.sidebare_container .sidebar{
+    background-color: #ccc;
+    position: fixed;
+    right: 20px;
+    width: 280px;
+    height: 95%;
+}
+ .sidebare_container .sidebar h1{
+    color: black;
+    text-align: center;
+    margin: 10px;
+}
+.sidebare_container .sidebar ul li{
+    font-size: 25px;
+    padding: 10px;
+    border-bottom: 1px solid #fff;
+    float: right;
+}
+.sidebare_container .sidebar ul li i{
+    margin-left: 30px;
+    color: black;
+}
+.sidebare_container .sidebar ul li a{
+    display: block;
+    color: black;
+    padding: 10px;
+}
+.sidebare_container .sidebar ul li a:hover{
+    background-color: rgb(161, 159, 163);
+    color: red;
+}
+.sidebare_container .content_sec{
+    margin-left: 40px;
+    /* مسافه لضمان عدم تداخل المحتوى مع sidebar */
+    margin-right: 300px;
+    padding: 20px;
+    overflow-y: auto;
+    /* السماح للمحتوى بالتمدد */
+    flex-grow: 1;
+}
+.sidebare_container .content_sec label{
+    display: block;
+    margin-bottom: 5px;
+    font-size: 40px;
+    margin-right: 40px;
+    text-align: right;
+}
+  .sidebare_container .content_sec input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+.sidebare_container .content_sec .add{
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.sidebare_container .content_sec .add:hover{
+    background-color: #0056b3;
+}
+.sidebare_container table{
+    background-color: #fff;
+    width: 100%;
+    border-collapse: collapse;
+}
+.sidebare_container table th,td{
+    font-size: 22px;
+    padding: 8px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+.sidebare_container table th{
+    background-color: #f0f0f0;
+}
+.sidebare_container table .delete{
+    color: white;
+    font-size: 18px;
+    background-color: rgb(182, 48, 48);
+    padding: 8px 18px;
+    border-radius: 2px;
+    border: 1px solid red;
+    margin-right: 5px;
+}
+.sidebare_container table .delete:hover{
+    background-color: rgb(37, 1, 1);
+    color: white;
+}
+.update{
+    color: white;
+    font-size: 18px;
+    background-color: rgb(3, 230, 100);
+    padding: 8px 18px;
+    border-radius: 2px;
+    border: 1px solid rgb(150, 240, 182);
+    margin-right: 5px;
+}
+.update:hover{
+    background-color: rgb(8, 94, 23);
+    color: white;
+}
+.sidebare_container table img{
+    width: 50px;
+    height: 50px;
+}
+/* start product */
+.form_product{
+    width: 70%;
+    margin: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 1);
+}
+h1{
+    padding: 10px;
+}
+label{
+    display: block;
+    margin-bottom: 5px;
+    font-size: 25px;
+}
+input{
+    width: 80%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.button{
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #007bff;
+    border: none;
+    cursor: pointer;
+    font-size: 28px;
+}
+.button:hover{
+    background-color: #011c38;
+    color: white;
+}
+#form_control{
+    width: 80%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* end product */

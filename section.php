@@ -59,12 +59,12 @@ if (isset($_GET['section'])) {
                 <a href="detalis.php?id=' . $row['id'].'"><i class="fa-solid fa-eye">'.$row['prodescription'].'</i>تفاصيل المنتج </a>
             </div>
             <form action="val.php" method="POST">
-        <!-- Quantity -->
-        <div class="qty_input">
-            <button class="qty_count_mins">-</button>
-            <input type="number" name="quantity" id="quantity" value="1" min="1" max="7">
-            <button class="qty_count_add">+</button>
-        </div><br>
+       <!-- Quantity -->
+            <div class="qty_input">
+                <button type="button" class="decrease-btn">-</button>
+                <input type="number" name="quantity" class="quantity-input" value="1" min="1" max="7">
+                <button type="button" class="increase-btn">+</button>
+            </div><br>
          <!-- Quantity -->
            <!-- submit -->
         <div class="submit">
@@ -88,4 +88,4 @@ if (isset($_GET['section'])) {
     
     <br><br><br><br><br>
     <?= include("file/footer.php");?>
-
+    <script src="inc&dec.js"></script>
